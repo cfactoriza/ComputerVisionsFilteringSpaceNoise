@@ -1,8 +1,3 @@
-"""
-CS 4391 Homework 2 Programming: Part 4 - non-local means filter
-Implement the nlm_filtering() function in this python script
-"""
- 
 import cv2
 import numpy as np
 import math
@@ -13,25 +8,9 @@ def nlm_filtering(
     patch_size: int,
     window_size: int,
 ) -> np.uint8:
-    """
-    Homework 2 Part 4
-    Compute the filtered image given an input image, kernel size of image patch, spatial variance, and intensity range variance
-    """
-
     img = img / 255
     img = img.astype("float32")
     img_filtered = np.zeros(img.shape) # Placeholder of the filtered image
-    
-    # Todo: For each pixel position [i, j], you need to compute the filtered output: img_filtered[i, j] using a non-local means filter
-    # step 1: compute window_sizexwindow_size filter weights of the non-local means filter in terms of intensity_variance. 
-    # step 2: compute the filtered pixel img_filtered[i, j] using the obtained kernel weights and the pixel values in the search window
-    # Please see slides 30 and 31 of lecture 6. Clarification: the patch_size refers to the size of small image patches (image content in yellow, 
-    # red, and blue boxes in the slide 30); intensity_variance denotes sigma^2 in slide 30; the window_size is the size of the search window as illustrated in slide 31.
-    # Tip: use zero-padding to address the black border issue. 
-
-    # ********************************
-    # Your code is here.
-
     pad_patch = patch_size // 2
     pad_window = window_size // 2
     sizeX, sizeY = img.shape
@@ -54,10 +33,6 @@ def nlm_filtering(
             patches = np.array(patches)
             weights_sum = np.sum(weights) + 1e-16
             img_filtered[i, j] = np.sum(weights * patches) / weights_sum
-
-    # ********************************
-
-            
     img_filtered = img_filtered * 255
     img_filtered = np.uint8(img_filtered)
     return img_filtered
